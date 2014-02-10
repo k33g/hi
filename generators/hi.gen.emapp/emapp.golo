@@ -47,8 +47,8 @@ function generator = |hi| {
     hi: copyToFile(hi: loadFile("run-npm.bat"), "run-npm.bat")
     hi: copyToFile(hi: loadFile("run-bower.bat"), "run-bower.bat")
 
-    hi: runCmd("run-npm.bat", 1)
-    hi: runCmd("run-bower.bat", 1)
+    hi: runCmd("run-npm.bat", 0)
+    hi: runCmd("run-bower.bat", 0)
 
   } else { # osx or tux
     hi: npmInstall()
