@@ -28,7 +28,7 @@ function main = |args| {
 |   Y  \  | |  Y Y  \/ __ \|   |  \|
 |___|  /__| |__|_|  (____  /___|  /_
      \/           \/     \/     \/\/
-  HI Generator (c) 2014-2015 @k33g_org
+HI Generator (c) 2014-2015 @k33g_org
 """)
 
   #println(" OS : " + OS)

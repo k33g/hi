@@ -1,5 +1,13 @@
 #Hi
 
+    .__    .__                       ._.
+    |  |__ |__|   _____ _____    ____| |
+    |  |  \|  |  /     \\__  \  /    \ |
+    |   Y  \  | |  Y Y  \/ __ \|   |  \|
+    |___|  /__| |__|_|  (____  /___|  /_
+         \/           \/     \/     \/\/
+    HI Generator (c) 2014-2015 @k33g_org
+
 **Hi** is like **Yeoman**, it's an application and code generator.
 
 Generators are located to `generators` directory. **Hi** is provided with 2 samples generators :
