@@ -39,10 +39,23 @@ function generator = |hi| {
   hi: copyToFile(hi: loadFile(".bowerrc"), ".bowerrc")
 
   println("Generator is done")
-  println("Running 'npm install' ...")
+  println("Running 'npm install' then 'bower update'")
 
-  hi: npmInstall()
-  hi: bowerUpdate()
+  println("OS : " + hi: os())
+
+  if hi: isWindow() is true { # trick
+    hi: copyToFile(hi: loadFile("run-npm.bat"), "run-npm.bat")
+    hi: copyToFile(hi: loadFile("run-bower.bat"), "run-bower.bat")
+
+    hi: runCmd("run-npm.bat", 1)
+    hi: runCmd("run-bower.bat", 1)
+
+  } else {
+    hi: npmInstall()
+    hi: bowerUpdate()
+  }
+
+
 
 
 }

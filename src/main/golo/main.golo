@@ -54,9 +54,11 @@ HI Generator (c) 2014-2015 @k33g_org
     let generator = fun("generator", generator_module)
 
     generator(tools(
-      targetDir,
-      sourceDir_generators+"/hi.gen."+generatorName, sourceDir_generators,
-      args_generator)
+        targetDir,
+        sourceDir_generators+"/hi.gen."+generatorName, sourceDir_generators,
+        args_generator,
+        OS
+      )
     )
 
     ### end of generator execution
