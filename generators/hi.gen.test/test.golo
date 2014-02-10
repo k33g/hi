@@ -7,6 +7,7 @@ function generator = |hi| {
 
   println("arguments (first is generator name) : " + hi: arguments(): get(0))
 
+
   println("applicationDirectory : "+hi: applicationDirectory())
   println("generatorDirectory : "+hi: generatorDirectory())
 

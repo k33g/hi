@@ -32,6 +32,9 @@ function tools = |targetDir, sourceDir_current_generator, sourceDir_generators, 
   : generatorDirectory(sourceDir_current_generator)
   : templatesDirectory(sourceDir_current_generator+"/templates")
   : filesDirectory(sourceDir_current_generator+"/files")
+  : listFiles(|this, directory, recursive| {
+      return FileUtils.listFiles(java.io.File(this: applicationDirectory()+"/"+directory), null, recursive)
+  })
   : makeDirectory(|this, directory|{
       FileUtils.forceMkdir(java.io.File(this: applicationDirectory()+"/"+directory))
   })
