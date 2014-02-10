@@ -14,9 +14,10 @@ augment java.lang.String {
 }
 
 
-function tools = |targetDir, sourceDir_current_generator, sourceDir_generators| -> DynamicObject()
+function tools = |targetDir, sourceDir_current_generator, sourceDir_generators, args_generator| -> DynamicObject()
   : define("hello",|this| -> println("=== HELLO HELLO HELLO ==="))
   : applicationDirectory(targetDir)
+  : arguments(args_generator)
   : generators_directory(sourceDir_generators)
   : create_directory_in_generators_directory(|this, directory| {
       FileUtils.forceMkdir(java.io.File(this: generators_directory()+"/hi.gen."+directory))
@@ -42,16 +43,21 @@ function tools = |targetDir, sourceDir_current_generator, sourceDir_generators| 
   : copyToFile(|this, content, destination| {
       textToFile(content, this: applicationDirectory()+"/"+destination)
   })
-  : npmInstall(|this|{
-    let line = "npm install"
-    let cmdLine = CommandLine.parse(line)
-    let executor = DefaultExecutor()
-    let exitValue = executor: execute(cmdLine)
+  : npmInstall(|this| {
+      let line = "npm install"
+      let cmdLine = CommandLine.parse(line)
+      let executor = DefaultExecutor()
+      return executor: execute(cmdLine)
   })
-  : bowerUpdate(|this|{
-    let line = "bower update"
-    let cmdLine = CommandLine.parse(line)
-    let executor = DefaultExecutor()
-    let exitValue = executor: execute(cmdLine)
+  : bowerUpdate(|this| {
+      let line = "bower update"
+      let cmdLine = CommandLine.parse(line)
+      let executor = DefaultExecutor()
+      return executor: execute(cmdLine)
+  })
+  : runCmd(|this, line| {
+      let cmdLine = CommandLine.parse(line)
+      let executor = DefaultExecutor()
+      return executor: execute(cmdLine)
   })
 

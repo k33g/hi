@@ -37,7 +37,9 @@ HI Generator (c) 2014-2015 @k33g_org
   let sourceDir = args: get(0)
   let targetDir = args: get(1)
 
-  let generatorName = args: get(2)
+  let args_generator = args: get(2): split(":")
+
+  let generatorName = args_generator: get(0)
 
   let sourceDir_generators = sourceDir + "/generators"
   let srcDir_generators = File(sourceDir_generators)
@@ -51,7 +53,11 @@ HI Generator (c) 2014-2015 @k33g_org
     let generator_module = env:asModule(fileToText(sourceDir_generators+"/hi.gen."+generatorName+"/"+generatorName+".golo", "UTF-8"))
     let generator = fun("generator", generator_module)
 
-    generator(tools(targetDir, sourceDir_generators+"/hi.gen."+generatorName, sourceDir_generators))
+    generator(tools(
+      targetDir,
+      sourceDir_generators+"/hi.gen."+generatorName, sourceDir_generators,
+      args_generator)
+    )
 
     ### end of generator execution
 
