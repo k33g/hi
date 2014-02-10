@@ -1,0 +1,8 @@
+#!/bin/sh
+# === hi (Generator) ===
+
+BASEDIR=$(dirname $0)
+GENERATOR=$1
+echo $BASEDIR
+CWD=$(pwd)
+java -jar $BASEDIR/hi.jar $BASEDIR $CWD $GENERATOR
