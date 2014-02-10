@@ -43,14 +43,14 @@ function generator = |hi| {
 
   println("OS : " + hi: os())
 
-  if hi: isWindow() is true { # trick
+  if hi: isWindows() is true { # trick
     hi: copyToFile(hi: loadFile("run-npm.bat"), "run-npm.bat")
     hi: copyToFile(hi: loadFile("run-bower.bat"), "run-bower.bat")
 
     hi: runCmd("run-npm.bat", 1)
     hi: runCmd("run-bower.bat", 1)
 
-  } else {
+  } else { # osx or tux
     hi: npmInstall()
     hi: bowerUpdate()
   }

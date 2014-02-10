@@ -17,9 +17,9 @@ augment java.lang.String {
 function tools = |targetDir, sourceDir_current_generator, sourceDir_generators, args_generator, OS| -> DynamicObject()
   : define("hello",|this| -> println("=== HELLO HELLO HELLO ==="))
   : os(OS)
-  : isWindows(|this| -> OS: indexOf("win") >= 0)
-  : isMac(|this| -> OS: indexOf("mac") >= 0)
-  : isLinux(|this| -> (OS: indexOf("nix") >= 0) or (OS: indexOf("nux") >= 0))
+  : isWindows(|this| -> this: os(): indexOf("win") >= 0)
+  : isMac(|this| -> this: os(): indexOf("mac") >= 0)
+  : isLinux(|this| -> (this: os(): indexOf("nix") >= 0) or (this: os(): indexOf("nux") >= 0))
   : applicationDirectory(targetDir)
   : arguments(args_generator)
   : generators_directory(sourceDir_generators)
@@ -62,7 +62,7 @@ function tools = |targetDir, sourceDir_current_generator, sourceDir_generators, 
   : runCmd(|this, line, exitCode| {
       let cmdLine = CommandLine.parse(line)
       let executor = DefaultExecutor()
-      executor: setExitValue(exitCode);
+      executor: setExitValue(exitCode)
       return executor: execute(cmdLine)
   })
 
