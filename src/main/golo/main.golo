@@ -48,10 +48,10 @@ function main = |args| {
     ### Load and execute generator
 
     let env = gololang.EvaluationEnvironment()
-    let generator_module = env:asModule(fileToText(sourceDir_generators+"/"+generatorName+"/"+generatorName+".golo", "UTF-8"))
+    let generator_module = env:asModule(fileToText(sourceDir_generators+"/hi.gen."+generatorName+"/"+generatorName+".golo", "UTF-8"))
     let generator = fun("generator", generator_module)
 
-    generator(tools(targetDir, sourceDir_generators+"/"+generatorName))
+    generator(tools(targetDir, sourceDir_generators+"/hi.gen."+generatorName, sourceDir_generators))
 
     ### end of generator execution
 

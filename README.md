@@ -51,5 +51,7 @@ To run **test** :
 
 ##Write, install and publish hi-generators
 
+    hi newgen
+
 **W.I.P.**
 

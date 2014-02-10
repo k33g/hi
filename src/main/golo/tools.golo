@@ -14,12 +14,19 @@ augment java.lang.String {
 }
 
 
-function tools = |targetDir, sourceDir_generators| -> DynamicObject()
+function tools = |targetDir, sourceDir_current_generator, sourceDir_generators| -> DynamicObject()
   : define("hello",|this| -> println("=== HELLO HELLO HELLO ==="))
   : applicationDirectory(targetDir)
-  : generatorDirectory(sourceDir_generators)
-  : templatesDirectory(sourceDir_generators+"/templates")
-  : filesDirectory(sourceDir_generators+"/files")
+  : generators_directory(sourceDir_generators)
+  : create_directory_in_generators_directory(|this, directory| {
+      FileUtils.forceMkdir(java.io.File(this: generators_directory()+"/hi.gen."+directory))
+  })
+  : copy_to_file_in_generator_directory(|this, content, destination| {
+      textToFile(content, this: generators_directory()+"/hi.gen."+destination)
+  })
+  : generatorDirectory(sourceDir_current_generator)
+  : templatesDirectory(sourceDir_current_generator+"/templates")
+  : filesDirectory(sourceDir_current_generator+"/files")
   : makeDirectory(|this, directory|{
       FileUtils.forceMkdir(java.io.File(this: applicationDirectory()+"/"+directory))
   })
