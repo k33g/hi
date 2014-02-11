@@ -6,7 +6,7 @@ function generator = |hi| {
   hi: create_directory_in_generators_directory(generatorName+"/files")
   hi: create_directory_in_generators_directory(generatorName+"/templates")
 
-  let infos = DynamicObject(): generatorName(generatorName)
+  let infos = DynamicObject(): generatorName(generatorName:trim())
 
   # generate string template
   let content = hi: template(
