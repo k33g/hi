@@ -15,18 +15,19 @@
 </head>
 <body>
   <div class="container">
-    <h1><%= infos: applicationName() %></h1>
+    <big-title></big-title>
   </div>
   <div class="container">
-    <div class="row">
-
-    </div>
+    <!-- some components here -->
   </div>
 
-  <script src="js/bower_components/jquery/jquery.min.js"></script>
-  <script src="js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="js/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="js/bower_components/underscore/underscore.js"></script>
   <script src="js/bower_components/backbone/backbone.js"></script>
+  <script src="js/bower_components/react/react.min.js"></script>
+  <script src="js/bower_components/react/JSXTransformer.js"></script>
+
+  <script src="js/all.scripts.js"></script>
 
 </body>
 </html>
