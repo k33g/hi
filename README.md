@@ -39,7 +39,8 @@ To run **test** :
     pico ~/.bashrc
 
     # 3- Then :
-    export PATH=$PATH:$HOME/directory/hi
+    export HI_HOME
+    export PATH=$PATH:$HI_HOME
 
 ###OSX
 
