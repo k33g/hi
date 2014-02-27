@@ -1,7 +1,15 @@
 module m33kig
 
+function updateJSLoader = |hi, infos| {
+    infos: models(hi: listFiles("public/js/models", false))
+    infos: components(hi: listFiles("public/js/components", false))
+    infos: modules(hi: listFiles("public/js/modules", false))
+
+    let all_scripts_js = hi: template(hi: loadTemplate("all.scripts"), "infos", infos)
+    hi: copyToFile(all_scripts_js,"public/js/all.scripts.js")
+}
+
 function generator = |hi| { #hi m33kig
-  #require(hi: arguments(): size() == 3, "use it like that : hi bb:m:Human")
 
     println("=== m33ki golo webapp generator ===")
 
@@ -48,7 +56,7 @@ function generator = |hi| { #hi m33kig
 
       # === Generate Backbone Model and Collection
       if hi: arguments(): get(1): equals("bbmc") { #hi m33kig:bbmc:Human
-        #let modelName = readln("Model name? ")
+
         let modelName = hi: arguments(): get(2)
         let defaults = readln("Default values (ie: first:'',last'')? ")
         infos: modelName(modelName)
@@ -60,25 +68,14 @@ function generator = |hi| { #hi m33kig
         hi: copyToFile(collection_js,"public/js/models/"+infos: modelName()+"sCollection.js")
 
         #update all.scripts.js
-
-        infos: models(hi: listFiles("public/js/models", false))
-        infos: components(hi: listFiles("public/js/components", false))
-        infos: modules(hi: listFiles("public/js/modules", false))
-
-        let all_scripts_js = hi: template(hi: loadTemplate("all.scripts"), "infos", infos)
-        hi: copyToFile(all_scripts_js,"public/js/all.scripts.js")
+        updateJSLoader(hi, infos)
 
         println("Model and Collection have been generated.")
 
       }
 
-
       # === Generate MongoDB Model and Collection + Controller + Routes
       if hi: arguments(): get(1): equals("mgmc") { # hi m33kig:mgmc:Human
-
-        #let modelName = hi: arguments(): get(2)
-        #let dataBaseName = readln("Database name? ")
-        #let collectionName = readln("Collection Name? ")
 
         infos
           : modelName(hi: arguments(): get(2))
@@ -104,7 +101,6 @@ function generator = |hi| { #hi m33kig
 
         hi: listFiles("app/routes/", false): each(|file| {
           if file: getName(): equals("routes.golo") isnt true {
-            #println(file: getName())
 
             infos: imports(): append("routes." + file: getName(): split(".routes.golo"): get(0): toLowerCase())
 
@@ -115,15 +111,58 @@ function generator = |hi| { #hi m33kig
 
         })
 
-        #println(infos: imports())
-        #println(infos: routes())
-
         let all_routes = hi: template(hi: loadTemplate("all.routes"), "infos", infos)
         hi: copyToFile(all_routes,"app/routes/routes.golo")
 
         println("MongoDb Model, Collection, Routes and Controller have been generated.")
 
       }
+
+
+      # === Generate USER (about authentication) MongoDB Model and Collection + Controller + Routes
+      if hi: arguments(): get(1): equals("mgmcu") { # hi m33kig:mgmcu
+
+        infos
+          : modelName("User")
+          : dataBaseName(readln("MongoDb Database name? "))
+          : collectionName(readln("MongoDb Collection Name? "))
+
+        # --- Model & Collection ---
+        let mongo_model = hi: template(hi: loadTemplate("mgmodel_user"), "infos", infos)
+        hi: copyToFile(mongo_model,"app/models/"+infos: modelName()+".golo")
+
+        # --- Controller ---
+        let mongo_controller = hi: template(hi: loadTemplate("mgcontroller_user"), "infos", infos)
+        hi: copyToFile(mongo_controller,"app/controllers/"+infos: modelName()+"s.golo")
+
+        # --- Routes ---
+        let mongo_routes = hi: template(hi: loadTemplate("routes_user"), "infos", infos)
+        hi: copyToFile(mongo_routes,"app/routes/"+infos: modelName()+"s.routes.golo")
+
+        #println(hi: listFiles("app/routes/", false))
+
+        infos: imports(list[])
+        infos: routes(list[])
+
+        hi: listFiles("app/routes/", false): each(|file| {
+          if file: getName(): equals("routes.golo") isnt true {
+
+            infos: imports(): append("routes." + file: getName(): split(".routes.golo"): get(0): toLowerCase())
+
+            infos: routes(): append(
+              "define" + file: getName(): split(".routes.golo"): get(0) + "Routes()"
+             )
+          }
+
+        })
+
+        let all_routes = hi: template(hi: loadTemplate("all.routes"), "infos", infos)
+        hi: copyToFile(all_routes,"app/routes/routes.golo")
+
+        println("User MongoDb Model, Collection, Routes and Controller have been generated.")
+
+      }
+
 
       # === Table ===
       if hi: arguments(): get(1): equals("rt") { # hi m33kig:rt:HumansTable:Human
@@ -147,13 +186,7 @@ function generator = |hi| { #hi m33kig
         hi: copyToFile(table_component,"public/js/components/"+componentName+".js")
 
         #update all.scripts.js
-
-        infos: models(hi: listFiles("public/js/models", false))
-        infos: components(hi: listFiles("public/js/components", false))
-        infos: modules(hi: listFiles("public/js/modules", false))
-
-        let all_scripts_js = hi: template(hi: loadTemplate("all.scripts"), "infos", infos)
-        hi: copyToFile(all_scripts_js,"public/js/all.scripts.js")
+        updateJSLoader(hi, infos)
 
         println("Table has been generated.")
 
@@ -181,17 +214,31 @@ function generator = |hi| { #hi m33kig
         hi: copyToFile(form_component,"public/js/components/"+componentName+".js")
 
         #update all.scripts.js
-
-        infos: models(hi: listFiles("public/js/models", false))
-        infos: components(hi: listFiles("public/js/components", false))
-        infos: modules(hi: listFiles("public/js/modules", false))
-
-        let all_scripts_js = hi: template(hi: loadTemplate("all.scripts"), "infos", infos)
-        hi: copyToFile(all_scripts_js,"public/js/all.scripts.js")
+        updateJSLoader(hi, infos)
 
         println("Form has been generated.")
 
       }
+
+      # === Shell ===
+      if hi: arguments(): get(1): equals("rshell") { # hi m33kig:rshell:MyComponent:div
+        let componentName = hi: arguments(): get(2)
+        let tag = hi: arguments(): get(3)
+
+        infos
+          : componentName(componentName)
+          : tag(tag)
+
+        let react_component = hi: template(hi: loadTemplate("reactshell"), "infos", infos)
+        hi: copyToFile(react_component,"public/js/components/"+componentName+".js")
+
+        #update all.scripts.js
+        updateJSLoader(hi, infos)
+
+        println("Component has been generated.")
+
+      }
+
 
       if hi: arguments(): get(1): equals("v") {
         println("wip")

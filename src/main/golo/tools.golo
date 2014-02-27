@@ -48,6 +48,7 @@ function tools = |targetDir, sourceDir_current_generator, sourceDir_generators, 
       return fileToText(this: filesDirectory()+"/"+fileName, "UTF-8")
   })
   : copyToFile(|this, content, destination| {
+      FileUtils.deleteQuietly(java.io.File(this: applicationDirectory()+"/"+destination))
       textToFile(content, this: applicationDirectory()+"/"+destination)
   })
   : npmInstall(|this| {

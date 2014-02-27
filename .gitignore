@@ -1,5 +1,8 @@
+/generators/hi.gen.bb/
 /generators/hi.gen.bb/*
+/generators/hi.gen.emapp/
 /generators/hi.gen.emapp/*
+/generators/hi.gen.reactnode/
 /generators/hi.gen.reactnode/*
 /sandbox/*
 /target/*
