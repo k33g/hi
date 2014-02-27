@@ -63,6 +63,12 @@ function tools = |targetDir, sourceDir_current_generator, sourceDir_generators, 
       let executor = DefaultExecutor()
       return executor: execute(cmdLine)
   })
+  : bowerInstall(|this| {
+      let line = "bower install"
+      let cmdLine = CommandLine.parse(line)
+      let executor = DefaultExecutor()
+      return executor: execute(cmdLine)
+  })
   : runCmd(|this, line, exitCode| {
       let cmdLine = CommandLine.parse(line)
       let executor = DefaultExecutor()

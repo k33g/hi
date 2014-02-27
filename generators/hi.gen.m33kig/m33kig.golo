@@ -48,7 +48,8 @@ function generator = |hi| { #hi m33kig
         hi: copyToFile(hi: loadFile("run-bower.bat"), "run-bower.bat")
         hi: runCmd("run-bower.bat", 0)
       } else { # osx or tux
-        hi: bowerUpdate()
+        #hi: bowerUpdate()
+        hi: bowerInstall()
       }
 
     } else { # sub-generators
