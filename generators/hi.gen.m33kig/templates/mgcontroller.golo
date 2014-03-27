@@ -11,7 +11,7 @@ function <%= infos: modelName() %>sController = |<%= infos: modelName(): toLower
       # GET request : get all models
         response: type("application/json")
         response: status(200)
-        return Json(): toJsonString(<%= infos: modelName(): toLowerCase() %>s: fetchAllReadable())
+        return Json(): toJsonString(<%= infos: modelName(): toLowerCase() %>s: fetch())
     })
     : define("getOne", |this, request, response| {
       # GET request : get one model by id

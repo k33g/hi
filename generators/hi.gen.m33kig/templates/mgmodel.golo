@@ -1,6 +1,6 @@
 module models.<%= infos: modelName(): toLowerCase() %>
 
-import m33ki.mongodb2
+import m33ki.mongodb
 
 # Collection
 function <%= infos: modelName() %>s = {
