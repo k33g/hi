@@ -93,6 +93,50 @@ function gen_mongodb = |hi, infos| {
   return null
 }
 
+# === Generate Authenticated MongoDB Model and Collection + Controller + Routes
+function gen_mongodb_authenticated = |hi, infos| {
+  infos
+    : modelName(readln("Model name? "))
+    : dataBaseName(readln("MongoDb Database name? "))
+    : collectionName(readln("MongoDb Collection Name? "))
+
+  # --- Model & Collection ---
+  let mongo_model = hi: template(hi: loadTemplate("mgmodel_user"), "infos", infos)
+  hi: copyToFile(mongo_model,"app/models/"+infos: modelName()+".golo")
+
+  # --- Controller ---
+  let mongo_controller = hi: template(hi: loadTemplate("mgcontroller_user"), "infos", infos)
+  hi: copyToFile(mongo_controller,"app/controllers/"+infos: modelName()+"s.golo")
+
+  # --- Routes ---
+  let mongo_routes = hi: template(hi: loadTemplate("routes_user"), "infos", infos)
+  hi: copyToFile(mongo_routes,"app/routes/"+infos: modelName()+"s.routes.golo")
+
+  #println(hi: listFiles("app/routes/", false))
+
+  infos: imports(list[])
+  infos: routes(list[])
+
+  hi: listFiles("app/routes/", false): each(|file| {
+    if file: getName(): equals("routes.golo") isnt true {
+
+      infos: imports(): append("routes." + file: getName(): split(".routes.golo"): get(0): toLowerCase())
+
+      infos: routes(): append(
+        "define" + file: getName(): split(".routes.golo"): get(0) + "Routes()"
+       )
+    }
+
+  })
+
+  let all_routes = hi: template(hi: loadTemplate("all.routes"), "infos", infos)
+  hi: copyToFile(all_routes,"app/routes/routes.golo")
+
+  println("[Authenticated] MongoDb Model, Collection, Routes and Controller have been generated.")
+  println("Tips : about Backbone Model and UI : pseudo and password fields are mandatory")
+  println("")
+  return null
+}
 
 function gen_react_ui_table = |hi, infos| {
 
@@ -207,9 +251,10 @@ local function choice_menu = |hi| {
 
     println("")
     println("1- MongoDB Model and Collection + Controller + Routes")
-    println("2- Backbone Model and Collection")
-    println("3- React UI")
-    println("4- React empty component")
+    println("2- [Authenticated] MongoDB Model and Collection + Controller + Routes")
+    println("3- Backbone Model and Collection")
+    println("4- React UI")
+    println("5- React empty component")
     println("x- Exit")
 
     println("")
@@ -223,12 +268,15 @@ local function choice_menu = |hi| {
         gen_mongodb(hi, infos)
       }
       when choice: equals("2") {
-        gen_backbone(hi, infos)
+        gen_mongodb_authenticated(hi, infos)
       }
       when choice: equals("3") {
-        gen_react_ui(hi, infos)
+        gen_backbone(hi, infos)
       }
       when choice: equals("4") {
+        gen_react_ui(hi, infos)
+      }
+      when choice: equals("5") {
         gen_react_shell(hi, infos)
       }
       otherwise {
