@@ -33,27 +33,27 @@ function define<%= infos: modelName() %>sRoutes = {
 
   # Create <%= infos: modelName() %>
   POST("/<%= infos: modelName(): toLowerCase() %>s", |request, response| {
-    return <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): create(request, response)
+    <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): create(request, response)
   })
 
   # Retrieve all <%= infos: modelName() %>s
   GET("/<%= infos: modelName(): toLowerCase() %>s", |request, response| {
-    return <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): getAll(request, response)
+    <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): getAll(request, response)
   })
 
   # Retrieve <%= infos: modelName() %> by id
   GET("/<%= infos: modelName(): toLowerCase() %>s/:id", |request, response| {
-    return <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): getOne(request, response)
+    <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): getOne(request, response)
   })
 
   # Update <%= infos: modelName() %>
   PUT("/<%= infos: modelName(): toLowerCase() %>s/:id", |request, response| {
-    return <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): update(request, response)
+    <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): update(request, response)
   })
 
   # delete <%= infos: modelName() %>
   DELETE("/<%= infos: modelName(): toLowerCase() %>s/:id", |request, response| {
-    return <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): delete(request, response)
+    <%= infos: modelName() %>sController(<%= infos: modelName(): toLowerCase() %>s): delete(request, response)
   })
 
 }
