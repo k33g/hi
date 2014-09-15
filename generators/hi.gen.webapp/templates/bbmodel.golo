@@ -6,7 +6,6 @@ var <%= infos: modelName() %>Model = Backbone.Model.extend({
         <%= infos: defaults() %>
       }
     },
-    idAttribute: "_id",
     urlRoot : "<%= infos: modelName(): toLowerCase() %>s"
 });
 
