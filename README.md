@@ -10,23 +10,18 @@
 
 **Hi** is like **Yeoman**, it's an application and code generator.
 
-Generators are located to `generators` directory. **Hi** is provided with 2 samples generators :
+Generators are located to `generators` directory. **Hi** is provided with some samples generators :
 
-- **m33kig** : it generates application for [M33ki](https://github.com/TypeUnsafe/m33ki) framework
-- **test** : it generates a sample of Backbone model
-
+- [bb](https://github.com/k33g/hi/tree/master/generators/hi.gen.bb) : generate Backbone application. **Warn**: you have to install **npm** and **bower** before.
+- [emapp](https://github.com/k33g/hi/tree/master/generators/hi.gen.emapp) : it generates an express application and load dependencies (mongoose, bootstrap, jquery, underscore, backbone). **Warn**: you have to install **npm** and **bower** before.
+- [webapp](https://github.com/k33g/hi/tree/master/generators/hi.gen.webapp) : = bb + emapp
+- [test](https://github.com/k33g/hi/tree/master/generators/hi.gen.test) : it generates a sample of Backbone model
 
 To run **test** :
 
     mkdir myapp
     cd myapp
     hi test
-
-##Other generators (web site to come)
-
-- **[emapp](https://github.com/k33g/hi.gen.emapp)*** : it generates an express application and load dependencies (mongoose, bootstrap, jquery, underscore, backbone). **Warn**: you have to install **npm** and **bower** before.
-- **[reactnode](https://github.com/k33g/hi.gen.reactnode)** : it generates express with mongoose application with bootstrap, backbone, react and browserify. **Warn**: you have to install **npm** and **bower** before.(+ grunt-cli)
-
 
 ##Install Hi
 
