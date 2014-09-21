@@ -5,7 +5,7 @@ It helps you to create a Backbone front web application.
 
 ##hi bb
 
-    md myapplication
+    mkdir myapplication
     cd myapplication
     hi bb # generate project backbone structure
 

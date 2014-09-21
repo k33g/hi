@@ -14,6 +14,6 @@ require("./db/db").once('open', function callback () {
 });
 
 app.listen(args[0] || 3000);
-console.log("Listening on 3000")
+console.log("Listening on 3000 (don't forget to run MongoDb)");
 
 /* the end */

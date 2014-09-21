@@ -6,7 +6,7 @@ Generate express with mongoose application with bootstrap and backbone
 
 ##hi emapp
 
-    md myapplication
+    mkdir myapplication
     cd myapplication
     hi emapp # generate structure and download assets (bower and npm)
 
@@ -14,5 +14,3 @@ Generate express with mongoose application with bootstrap and backbone
 
     cd myapplication
     hi emapp:mgroutes # generate Mongoose models, controllers and routes
-
-hi emapp:mc
